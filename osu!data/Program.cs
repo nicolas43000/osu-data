@@ -8,6 +8,25 @@ namespace osu_data
 {
     class Program
     {
+        static string addSpace(string myString)
+        {
+            myString = Reverse(myString);
+            for (int i = 3; i <= myString.Length; i += 3)
+            {
+                myString = myString.Insert(i, " ");
+                i++;
+            }
+            myString = Reverse(myString);
+            return myString;
+        }
+
+        static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
         static void Main(string[] args)
         {
             string userName, std = "osu! Standard", taiko = "osu! Taiko", ctb = "osu! Catch the beat", mania = "osu! Mania", osuPath = "https://osu.ppy.sh/api/";
@@ -18,7 +37,7 @@ namespace osu_data
 
             if (string.IsNullOrEmpty(apiKey))
             {
-                Console.WriteLine("Please provide a valid api key in Program.cs before using");
+                Console.WriteLine("Please provide a valid api key in Program.cs before using.");
             }
             else
             {
@@ -66,10 +85,19 @@ namespace osu_data
                 List<User> myUser = new List<User>();
                 myUser = JsonConvert.DeserializeObject<List<User>>(rawJson);
 
-                Console.WriteLine("\nPseudo : " + myUser[0].Username);
-                Console.WriteLine("\nRank : " + myUser[0].Pp_rank);
-                Console.WriteLine("\nPP : " + myUser[0].Pp_raw);
-                Console.WriteLine("\nAccuracy : " + myUser[0].Accuracy + "%");
+                string player = myUser[0].Username;
+                string rank = addSpace(myUser[0].Pp_rank);
+                double pp = Math.Round(myUser[0].Pp_raw, 0);
+                double acc = Math.Round(myUser[0].Accuracy, 2);
+
+                Console.WriteLine("\nPlayer : " + player);
+                Console.WriteLine("Rank : " + rank);
+                Console.WriteLine("PP : " + pp);
+                Console.WriteLine("Accuracy : " + acc + "%");
+
+
+                Console.WriteLine("\nPress enter to exit.");
+                Console.Read();
             }
         }
     }
