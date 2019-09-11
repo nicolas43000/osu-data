@@ -33,7 +33,7 @@ namespace osu_data
             int mode;
 
             //Please put your api key here
-            string apiKey = "52e6d0d12d86b81d54028320b68fdacc577c59c4";
+            string apiKey = "xxx";
 
             if (string.IsNullOrEmpty(apiKey))
             {
